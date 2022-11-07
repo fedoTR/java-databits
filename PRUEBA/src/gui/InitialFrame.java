@@ -22,7 +22,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.JSplitPane;
 
 
 public class InitialFrame extends JFrame {
@@ -84,12 +83,13 @@ public class InitialFrame extends JFrame {
 		contentPane.add(desktopPane);
 			
 		JInternalFrame atencionCajaFrame = new JInternalFrame("Atención en caja");
+		atencionCajaFrame.setBounds(451, 23, 420, 409);
 		atencionCajaFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		atencionCajaFrame.setEnabled(false);
 		atencionCajaFrame.setIconifiable(true);
 		atencionCajaFrame.setClosable(true);
-		atencionCajaFrame.setBounds(12, 12, 420, 384);
 		atencionCajaFrame.setVisible(false);
+		desktopPane.setLayout(null);
 		desktopPane.add(atencionCajaFrame);	
 		atencionCajaFrame.getContentPane().setLayout(null);
 		
@@ -105,26 +105,26 @@ public class InitialFrame extends JFrame {
 		filaClientes.setBounds(12, 62, 224, 51);
 		atencionCajaFrame.getContentPane().add(filaClientes);
 		
-		JLabel lblShowFilaCruda = new JLabel("(Aqui aparecerá la fila con numeros)");
-		lblShowFilaCruda.setForeground(new Color(128, 128, 128));
-		lblShowFilaCruda.setFont(new Font("Dialog", Font.ITALIC, 12));
-		lblShowFilaCruda.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblShowFilaCruda.setHorizontalAlignment(SwingConstants.LEFT);
-		filaClientes.add(lblShowFilaCruda);
+		JLabel lblFilaCrudaPlaceholder = new JLabel("(Aqui aparecerá la fila con numeros)");
+		lblFilaCrudaPlaceholder.setForeground(new Color(128, 128, 128));
+		lblFilaCrudaPlaceholder.setFont(new Font("Dialog", Font.ITALIC, 12));
+		lblFilaCrudaPlaceholder.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblFilaCrudaPlaceholder.setHorizontalAlignment(SwingConstants.LEFT);
+		filaClientes.add(lblFilaCrudaPlaceholder);
 		
 		JPanel filaClientesAtendidos = new JPanel();
 		filaClientesAtendidos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fila de atendidos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		filaClientesAtendidos.setBounds(12, 133, 386, 51);
+		filaClientesAtendidos.setBounds(12, 133, 224, 51);
 		atencionCajaFrame.getContentPane().add(filaClientesAtendidos);
 		
-		JLabel lblNewLabel = new JLabel("(Aqui aparecerá la fila de personas ya atendidas)");
-		lblNewLabel.setForeground(new Color(128, 128, 128));
-		lblNewLabel.setFont(new Font("Dialog", Font.ITALIC, 12));
-		filaClientesAtendidos.add(lblNewLabel);
+		JLabel lblClientesAtendidosPlaceholder = new JLabel("(Personas ya atendidas)");
+		lblClientesAtendidosPlaceholder.setForeground(new Color(128, 128, 128));
+		lblClientesAtendidosPlaceholder.setFont(new Font("Dialog", Font.ITALIC, 12));
+		filaClientesAtendidos.add(lblClientesAtendidosPlaceholder);
 		
 		JPanel controlesAtencionCaja = new JPanel();
 		controlesAtencionCaja.setBorder(new TitledBorder(null, "Controles de atenci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		controlesAtencionCaja.setBounds(12, 208, 386, 82);
+		controlesAtencionCaja.setBounds(12, 208, 386, 93);
 		atencionCajaFrame.getContentPane().add(controlesAtencionCaja);
 		controlesAtencionCaja.setLayout(new GridLayout(2, 3, 0, 5));
 		
@@ -149,12 +149,108 @@ public class InitialFrame extends JFrame {
 		controlesAtencionCaja.add(peliculaCliente);
 		
 		JButton btnRegistrarAtencion = new JButton("Atender");
-		btnRegistrarAtencion.setBounds(158, 302, 98, 26);
+		btnRegistrarAtencion.setBounds(157, 338, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
 		
 		JButton btnRefillFilaCruda = new JButton("Pasar 5");
 		btnRefillFilaCruda.setBounds(249, 75, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRefillFilaCruda);
+		
+		JButton btnPasarAtendidosADulceria = new JButton("Pasarlos a dulcería");
+		btnPasarAtendidosADulceria.setBounds(248, 146, 150, 38);
+		atencionCajaFrame.getContentPane().add(btnPasarAtendidosADulceria);
+		
+		JInternalFrame atencionDulceriaFrame = new JInternalFrame("Atención en dulcería");
+		atencionDulceriaFrame.setBounds(36, 23, 347, 542);
+		atencionDulceriaFrame.setIconifiable(true);
+		atencionDulceriaFrame.setClosable(true);
+		desktopPane.add(atencionDulceriaFrame);
+		atencionDulceriaFrame.getContentPane().setLayout(null);
+		
+		JPanel filaClientesDulceria = new JPanel();
+		filaClientesDulceria.setBorder(new TitledBorder(null, "Clientes en dulcer\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		filaClientesDulceria.setBounds(12, 12, 313, 53);
+		atencionDulceriaFrame.getContentPane().add(filaClientesDulceria);
+		
+		JPanel detallesClientesDulceria = new JPanel();
+		detallesClientesDulceria.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Atendiendo a:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		detallesClientesDulceria.setBounds(12, 77, 313, 109);
+		atencionDulceriaFrame.getContentPane().add(detallesClientesDulceria);
+		detallesClientesDulceria.setLayout(new GridLayout(3, 2, 5, 5));
+		
+		JLabel lblDetallesLugar = new JLabel("Posicion:");
+		detallesClientesDulceria.add(lblDetallesLugar);
+		
+		JLabel lblDetallesLugarPlaceholder = new JLabel("(Posicion cliente)");
+		lblDetallesLugarPlaceholder.setForeground(new Color(128, 128, 128));
+		lblDetallesLugarPlaceholder.setFont(new Font("Dialog", Font.ITALIC, 12));
+		detallesClientesDulceria.add(lblDetallesLugarPlaceholder);
+		
+		JLabel lblDetallesNombre_1 = new JLabel("Nombre:");
+		detallesClientesDulceria.add(lblDetallesNombre_1);
+		
+		JLabel lblDetallesNombrePlaceholder_1 = new JLabel("(Nombre cliente)");
+		lblDetallesNombrePlaceholder_1.setForeground(new Color(128, 128, 128));
+		lblDetallesNombrePlaceholder_1.setFont(new Font("Dialog", Font.ITALIC, 12));
+		detallesClientesDulceria.add(lblDetallesNombrePlaceholder_1);
+		
+		JLabel lblDetallesCombo = new JLabel("Combo:");
+		detallesClientesDulceria.add(lblDetallesCombo);
+		
+		JLabel lblDetallesComboPlaceholder = new JLabel("(Combo)");
+		lblDetallesComboPlaceholder.setForeground(new Color(128, 128, 128));
+		lblDetallesComboPlaceholder.setFont(new Font("Dialog", Font.ITALIC, 12));
+		detallesClientesDulceria.add(lblDetallesComboPlaceholder);
+		
+		JPanel controlCombos = new JPanel();
+		controlCombos.setBorder(new TitledBorder(null, "Combos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		controlCombos.setBounds(42, 203, 249, 119);
+		atencionDulceriaFrame.getContentPane().add(controlCombos);
+		controlCombos.setLayout(new GridLayout(0, 3, 5, 5));
+		
+		JButton btnCombo1 = new JButton("1");
+		controlCombos.add(btnCombo1);
+		
+		JButton btnCombo2 = new JButton("2");
+		controlCombos.add(btnCombo2);
+		
+		JButton btnCombo3 = new JButton("3");
+		controlCombos.add(btnCombo3);
+		
+		JButton btnCombo4 = new JButton("4");
+		controlCombos.add(btnCombo4);
+		
+		JButton btnCombo5 = new JButton("5");
+		controlCombos.add(btnCombo5);
+		
+		JButton btnCombo6 = new JButton("6");
+		controlCombos.add(btnCombo6);
+		
+		JButton btnCombo7 = new JButton("7");
+		controlCombos.add(btnCombo7);
+		
+		JButton btnCombo8 = new JButton("8");
+		controlCombos.add(btnCombo8);
+		
+		JButton btnCombo9 = new JButton("9");
+		controlCombos.add(btnCombo9);
+		
+		JPanel controlCharolas = new JPanel();
+		controlCharolas.setBounds(12, 338, 313, 68);
+		atencionDulceriaFrame.getContentPane().add(controlCharolas);
+		controlCharolas.setLayout(new GridLayout(0, 2, 5, 5));
+		
+		JPanel panel_2 = new JPanel();
+		controlCharolas.add(panel_2);
+		panel_2.setBorder(new TitledBorder(null, "Charolas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
+		JButton btnRellenarCharolas = new JButton("Rellenar charolas");
+		controlCharolas.add(btnRellenarCharolas);
+		
+		JButton btnAtenderClienteDulceria = new JButton("Atender y pasar a entrada");
+		btnAtenderClienteDulceria.setBounds(12, 447, 313, 26);
+		atencionDulceriaFrame.getContentPane().add(btnAtenderClienteDulceria);
+		atencionDulceriaFrame.setVisible(true);
 		
 		JButton btnAtencionCaja = new JButton("Atención Caja");
 		btnAtencionCaja.addMouseListener(new MouseAdapter() {
