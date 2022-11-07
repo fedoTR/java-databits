@@ -5,7 +5,6 @@ import java.util.Queue;
 
 
 public class Clientes {
-	// To scan inputs
 	
 	// Declare a Queue of clients, using Queue Interface
 	static Queue<Integer> clientesCola =  new LinkedList<>();
