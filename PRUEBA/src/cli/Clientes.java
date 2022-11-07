@@ -37,7 +37,6 @@ public class Clientes {
 		int head = clientesCola.peek();
 		clientesCola.remove(head);
 		colaDulceria.add(name);
-		System.out.println("O");
 	}
 	
 }
