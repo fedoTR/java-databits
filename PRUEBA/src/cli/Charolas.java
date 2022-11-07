@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class Charolas {
 	// Declare the stack of trays
-	static Stack<Integer> charola = new Stack<>();
+	Stack<Integer> charola = new Stack<>();
 	
 	// Refill trays
 	public void refillTrays() {
