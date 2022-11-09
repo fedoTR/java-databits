@@ -3,7 +3,7 @@ package cli;
 import java.util.Scanner;
 
 public class CLI {
-	
+	/*
 	public static void main(String[] args) {
 		// Array<Integer> combos = new Array<>();
 		
@@ -35,7 +35,7 @@ public class CLI {
 		// Close the scanner object
 		sc.close();
 		
-	}
+	}*/
 }
 
 // Array class

@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -20,8 +22,15 @@ import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
+
+import cli.Clientes;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Cursor;
+
 
 
 public class InitialFrame extends JFrame {
@@ -135,6 +144,7 @@ public class InitialFrame extends JFrame {
 		controlesAtencionCaja.add(lblPedirNombreCliente);
 		
 		nombreCliente = new JTextField();
+		nombreCliente.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		nombreCliente.setToolTipText("(Aqui va el nombre)");
 		controlesAtencionCaja.add(nombreCliente);
 		nombreCliente.setColumns(10);
@@ -149,10 +159,29 @@ public class InitialFrame extends JFrame {
 		controlesAtencionCaja.add(peliculaCliente);
 		
 		JButton btnRegistrarAtencion = new JButton("Atender");
+		btnRegistrarAtencion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					lblFilaCrudaPlaceholder.setText(Clientes.atenderClientesFila());
+				} catch(Exception e2) {
+					JOptionPane.showMessageDialog(btnRegistrarAtencion, "Rellena primero la fila");
+				}				
+			}
+		});
 		btnRegistrarAtencion.setBounds(157, 338, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
 		
 		JButton btnRefillFilaCruda = new JButton("Pasar 5");
+		btnRefillFilaCruda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					lblFilaCrudaPlaceholder.setText("[" + Clientes.generarClientesFila() + "]");
+				} catch(Exception e1) {
+					JOptionPane.showMessageDialog(btnRefillFilaCruda, e1);
+				}
+				
+			}
+		});
 		btnRefillFilaCruda.setBounds(249, 75, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRefillFilaCruda);
 		
@@ -161,7 +190,8 @@ public class InitialFrame extends JFrame {
 		atencionCajaFrame.getContentPane().add(btnPasarAtendidosADulceria);
 		
 		JInternalFrame atencionDulceriaFrame = new JInternalFrame("Atención en dulcería");
-		atencionDulceriaFrame.setBounds(36, 23, 347, 542);
+		atencionDulceriaFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		atencionDulceriaFrame.setBounds(36, 23, 347, 565);
 		atencionDulceriaFrame.setIconifiable(true);
 		atencionDulceriaFrame.setClosable(true);
 		desktopPane.add(atencionDulceriaFrame);
@@ -204,7 +234,7 @@ public class InitialFrame extends JFrame {
 		
 		JPanel controlCombos = new JPanel();
 		controlCombos.setBorder(new TitledBorder(null, "Combos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		controlCombos.setBounds(42, 203, 249, 119);
+		controlCombos.setBounds(42, 218, 249, 119);
 		atencionDulceriaFrame.getContentPane().add(controlCombos);
 		controlCombos.setLayout(new GridLayout(0, 3, 5, 5));
 		
@@ -236,7 +266,7 @@ public class InitialFrame extends JFrame {
 		controlCombos.add(btnCombo9);
 		
 		JPanel controlCharolas = new JPanel();
-		controlCharolas.setBounds(12, 338, 313, 68);
+		controlCharolas.setBounds(12, 394, 313, 68);
 		atencionDulceriaFrame.getContentPane().add(controlCharolas);
 		controlCharolas.setLayout(new GridLayout(0, 2, 5, 5));
 		
@@ -248,23 +278,37 @@ public class InitialFrame extends JFrame {
 		controlCharolas.add(btnRellenarCharolas);
 		
 		JButton btnAtenderClienteDulceria = new JButton("Atender y pasar a entrada");
-		btnAtenderClienteDulceria.setBounds(12, 447, 313, 26);
+		btnAtenderClienteDulceria.setBounds(12, 492, 313, 26);
 		atencionDulceriaFrame.getContentPane().add(btnAtenderClienteDulceria);
-		atencionDulceriaFrame.setVisible(true);
 		
 		JButton btnAtencionCaja = new JButton("Atención Caja");
 		btnAtencionCaja.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("CAJA");
-				atencionCajaFrame.setVisible(true);	
-				
+				if (atencionCajaFrame.isVisible() == true) {
+					JOptionPane.showMessageDialog(null, "Ya se encuentra abierto");
+				} else {
+					atencionCajaFrame.setVisible(true);	
+				}							
 			}
 		});
 		btnAtencionCaja.setToolTipText("Atención de clientes");
 		button_menu_container.add(btnAtencionCaja);
 		
 		JButton btnAtencionDulceria = new JButton("Atención Dulcería");
+		btnAtencionDulceria.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("DULCERIA");				
+				if (atencionDulceriaFrame.isVisible() == true){
+					JOptionPane.showMessageDialog(null, "Ya se encuentra abierto");
+				} else {
+					atencionDulceriaFrame.setVisible(true);
+				}
+			}
+		});
+		
 		button_menu_container.add(btnAtencionDulceria);
 		
 		JButton btnVerCartelera = new JButton("Ver Cartelera");

@@ -1,74 +1,50 @@
 package cli;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
+import javax.swing.JOptionPane;
 
 public class Clientes {
+	/* 
+	 * Variables
+	 * 
+	 *  */
+	// Instanica de ArrayList	(Arreglo)
+	static ArrayList<Integer> controlFila = new ArrayList<>(); 
+	static StringBuilder controlFilaString = new StringBuilder();
+	static String controlFilaStringToLabel;
+
+	/*
+	 *	Métodos 
+	 */
 	
-	static Scanner sc = new Scanner(System.in);
+	// Genera el arreglo de control de fila
 	
-	// Declare a Queue of clients, using Queue Interface
-	static Queue<Integer> clientesCola =  new LinkedList<>();
-	
-	// Declare a Queue of ATTENDED clients
-	static Queue<String> colaDulceria = new LinkedList<>();
-	
-	// Declare an ArrayList of Premium Clients
-	static ArrayList<String> clientesPremium = new ArrayList<>();
-	
-	// Add a client to the queue
-	public static void addToClientes(int a) {
-		clientesCola.add(a);
-	}
-	
-	// Print queue of clients
-	public static void printClientes() {
-		System.out.println("Clientes: " + clientesCola);
-	}
-	
-	// Check if the queue has been cleared
-	public static boolean isClientesEmpty() {
-		if (clientesCola.size() == 0){
-			System.out.println("YA NO HAY CLIENTES");
-			return true;
+	public static String generarClientesFila() {
+		if (controlFila.size() <= 0){
+			// Limpia el StringBuilder
+			controlFilaString.setLength(0);
+			
+			// Rellena la muestra de la fila
+			for (int i = 0; i < 5; ++i) {
+				controlFila.add(i);			
+			}			
+			System.out.println(controlFila);
+			for (int i = 0; i < 5; ++i) {
+				controlFilaString.append(controlFila.get(i) + " ");
+			}
+			System.out.println("FILA STRING: " + controlFilaString);
+			controlFilaStringToLabel = controlFilaString.toString();
+		} else {
+			JOptionPane.showMessageDialog(null, "Primero atiende a los 5");
 		}
-		return false;
+		return controlFilaStringToLabel;		
 	}
 	
-	// Attend a client
-	public static void attendCliente(String name) {
-		int head = clientesCola.peek();
-		clientesCola.remove(head);
-		colaDulceria.add(name);
-	}
-	
-	// Print clients on grocery store
-	public static Queue<String> printClientesDulceria() {
-		System.out.println("Clientes en dulceria: " + colaDulceria);
-		return colaDulceria;
-	}
-	
-	// Attend a client in grocery store queue
-	public static void attendClienteDulceria() {
-		String head = colaDulceria.peek();
-		System.out.println("Añadir " + head + " al servicio premium?\n1-.Si\n2-.No");
-		Integer ClienteDecision = sc.nextInt();
-		if (ClienteDecision.equals(1)) {
-			System.out.println(head + " ahora es premium!");
-			clientesPremium.add(head);
-		}
-		else {			
-			System.out.println("Cliente " + head + " atendido");
-		}
-		colaDulceria.remove(head);
-	}
-	
-	// Print premium clients array
-	public static void printClientesPremium() {
-		System.out.println("Clientes premium: " + clientesPremium);
-	}
-	
+	public static String atenderClientesFila() {
+			controlFila.remove(0);
+			return controlFilaStringToLabel = controlFila.toString();	
+		}		
 }
+
+
