@@ -42,7 +42,7 @@ public class Clientes {
 			System.out.println(clientesEnEspera);
 			System.out.println(clientesCola);
 		} else {
-			JOptionPane.showMessageDialog(null, "RELLENAR FILA");;
+			JOptionPane.showMessageDialog(null, "FAVOR DE RELLENAR FILA");;
 		}
 		return clientesCola.toString();
 	}
