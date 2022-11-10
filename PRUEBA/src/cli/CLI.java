@@ -1,6 +1,5 @@
 package cli;
 
-import java.util.Scanner;
 
 public class CLI {
 	/*

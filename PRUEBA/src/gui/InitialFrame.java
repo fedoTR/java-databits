@@ -45,8 +45,7 @@ public class InitialFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args) {		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					InitialFrame frame = new InitialFrame();
@@ -158,28 +157,24 @@ public class InitialFrame extends JFrame {
 		peliculaCliente.setToolTipText("(Seleccione la pelicula)");
 		controlesAtencionCaja.add(peliculaCliente);
 		
+		// Decrementa la fila y actualiza el label
 		JButton btnRegistrarAtencion = new JButton("Atender");
 		btnRegistrarAtencion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					lblFilaCrudaPlaceholder.setText(Clientes.atenderClientesFila());
-				} catch(Exception e2) {
-					JOptionPane.showMessageDialog(btnRegistrarAtencion, "Rellena primero la fila");
-				}				
+				Clientes clientes = new Clientes();
+				//clientes.dequeueClientes();
+				lblFilaCrudaPlaceholder.setText(clientes.dequeueClientes());;
 			}
 		});
 		btnRegistrarAtencion.setBounds(157, 338, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
 		
+		// Rellena la fila y actualiza el label
 		JButton btnRefillFilaCruda = new JButton("Pasar 5");
 		btnRefillFilaCruda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					lblFilaCrudaPlaceholder.setText("[" + Clientes.generarClientesFila() + "]");
-				} catch(Exception e1) {
-					JOptionPane.showMessageDialog(btnRefillFilaCruda, e1);
-				}
-				
+				Clientes clientes = new Clientes();
+				lblFilaCrudaPlaceholder.setText(clientes.refillClientes());
 			}
 		});
 		btnRefillFilaCruda.setBounds(249, 75, 98, 26);
