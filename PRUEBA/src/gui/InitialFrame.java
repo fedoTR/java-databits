@@ -32,7 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 
 
-
 public class InitialFrame extends JFrame {
 
 	/**
@@ -41,11 +40,13 @@ public class InitialFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField nombreCliente;
+	private JInternalFrame atencionCajaFrame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args) {		
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					InitialFrame frame = new InitialFrame();
@@ -61,6 +62,8 @@ public class InitialFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public InitialFrame() {
+		
+		carteleraFrame cartelera = new carteleraFrame();	
 		setMinimumSize(new Dimension(1080, 920));
 		setLocationByPlatform(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\elyto\\Downloads\\V4CBMZ8eLJu6DQ6i4iHR--1--K3UNI.jpg"));
@@ -89,8 +92,9 @@ public class InitialFrame extends JFrame {
 		desktopPane.setBackground(new Color(112, 128, 144));
 		desktopPane.setBounds(10, 93, 1042, 776);
 		contentPane.add(desktopPane);
+		desktopPane.add(cartelera);
 			
-		JInternalFrame atencionCajaFrame = new JInternalFrame("Atención en caja");
+		atencionCajaFrame = new JInternalFrame("Atención en caja");
 		atencionCajaFrame.setBounds(451, 23, 420, 409);
 		atencionCajaFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		atencionCajaFrame.setEnabled(false);
@@ -306,7 +310,13 @@ public class InitialFrame extends JFrame {
 		
 		button_menu_container.add(btnAtencionDulceria);
 		
+		// Botón de ver cartelera
 		JButton btnVerCartelera = new JButton("Ver Cartelera");
+		btnVerCartelera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cartelera.setVisible(true);
+			}
+		});
 		button_menu_container.add(btnVerCartelera);
 		
 		JButton btnAtencionEntradaSala = new JButton("Atención Entrada Sala");
@@ -320,5 +330,8 @@ public class InitialFrame extends JFrame {
 		lblTitle.setBounds(12, 12, 1040, 19);
 		panel.add(lblTitle);
 		
+	}
+	public JInternalFrame getAtencionCajaFrame() {
+		return atencionCajaFrame;
 	}
 }
