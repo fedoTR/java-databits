@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import javax.swing.DefaultComboBoxModel;
@@ -135,17 +134,25 @@ public class ClientesRecientes extends JInternalFrame {
 		btnBuscar.setEnabled(false);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int searchMethod = comboBox.getSelectedIndex();
-				
+				int searchMethod = comboBox.getSelectedIndex();			
 				switch (searchMethod) {
 				case 0:
-					BinarySearch();
+					try {
+						BinarySearch();
+					} catch(Exception e1) {
+						JOptionPane.showMessageDialog(null, "Ingresa un valor válido");
+					}
 					break;
 				case 1:
-					SequencialSearch();
-					break;
-					
+					try {
+						SequencialSearch();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "Ingresa un valor válido");
+					}
+					break;			
 				default:
+					System.out.println("No deberías estar aquí");
 				}
 			}
 		});
@@ -183,7 +190,9 @@ public class ClientesRecientes extends JInternalFrame {
 		String valorBuscar = JOptionPane.showInputDialog(null, "Ingresa el valor a buscar");
 		Integer a = Integer.valueOf(valorBuscar);
 		if (listaDeGanancias.contains(a) == true) {
+			int index = Collections.binarySearch(listaDeGanancias, a);
 			JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en: " + Collections.binarySearch(listaDeGanancias, a));
+			gananciasLista.setSelectedIndex(index);
 		} else {
 			JOptionPane.showMessageDialog(null, "No se encontró\nPrueba a escribir bien el valor e inténtalo de nuevo");
 		}
@@ -196,6 +205,7 @@ public class ClientesRecientes extends JInternalFrame {
 			for (int i = 0; i < listaDeGanancias.size(); i++) {
 				if (listaDeGanancias.get(i) == a) {
 					JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en el index: " + i);
+					gananciasLista.setSelectedIndex(i);
 				}
 			}
 		} else {

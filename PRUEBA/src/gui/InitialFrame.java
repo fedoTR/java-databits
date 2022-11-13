@@ -49,6 +49,8 @@ public class InitialFrame extends JFrame {
 			public void run() {
 				try {
 					InitialFrame frame = new InitialFrame();
+					//frame.pack();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,10 +74,8 @@ public class InitialFrame extends JFrame {
 		clientesrecientes.setLocation(870, 25);
 		productos.setLocation(391, 26);
 		setMinimumSize(new Dimension(1500, 500));
-		setLocationByPlatform(true);
-		setLocation(0,0);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\elyto\\Downloads\\V4CBMZ8eLJu6DQ6i4iHR--1--K3UNI.jpg"));
-		setTitle("SIMULADOR DE SUPERMERCADO");
+		setTitle("StructSale");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1073, 726);
@@ -98,7 +98,7 @@ public class InitialFrame extends JFrame {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(new Color(112, 128, 144));
-		desktopPane.setBounds(10, 93, 1464, 776);
+		desktopPane.setBounds(10, 93, 1464, 584);
 		contentPane.add(desktopPane);
 		desktopPane.add(productos);
 		desktopPane.add(clientesrecientes);
@@ -109,7 +109,6 @@ public class InitialFrame extends JFrame {
 		atencionCajaFrame.setEnabled(false);
 		atencionCajaFrame.setIconifiable(true);
 		atencionCajaFrame.setClosable(true);
-		atencionCajaFrame.setVisible(false);
 		desktopPane.setLayout(null);
 		desktopPane.add(atencionCajaFrame);	
 		atencionCajaFrame.getContentPane().setLayout(null);
@@ -214,13 +213,16 @@ public class InitialFrame extends JFrame {
 		});
 		button_menu_container.add(btnRevisarClientes);
 		
+		JButton btnNewButton = new JButton("Simulador de pasillos");
+		button_menu_container.add(btnNewButton);
+		
 		JLabel lblTitle = new JLabel("BIENVENID@ AL MENÚ");
 		lblTitle.setVerticalAlignment(SwingConstants.TOP);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setHorizontalTextPosition(SwingConstants.LEFT);
 		lblTitle.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblTitle.setBounds(12, 12, 1040, 26);
+		lblTitle.setBounds(12, 12, 1450, 26);
 		panel.add(lblTitle);
 		
 	}
