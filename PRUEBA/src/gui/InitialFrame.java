@@ -21,14 +21,12 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.border.TitledBorder;
-
 import cli.Clientes;
-
-import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Cursor;
 
 
 public class InitialFrame extends JFrame {
@@ -38,9 +36,9 @@ public class InitialFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField nombreCliente;
 	private JInternalFrame atencionCajaFrame;
-	private JTextField textField;
+	
+	List<String> clientesAtendidos = new Vector<>();
 
 	/**
 	 * Launch the application.
@@ -63,8 +61,15 @@ public class InitialFrame extends JFrame {
 	 */
 	public InitialFrame() {
 		
-		ProductosFrame cartelera = new ProductosFrame();	
-		cartelera.setLocation(563, 24);
+		ProductosFrame productos = new ProductosFrame();	
+		ClientesRecientes clientesrecientes = new ClientesRecientes();
+		clientesrecientes.setClosable(true);
+		clientesrecientes.setTitle("Ganancias \r\n");
+		clientesrecientes.setIconifiable(true);
+		clientesrecientes.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		clientesrecientes.setSize(457, 429);
+		clientesrecientes.setLocation(870, 25);
+		productos.setLocation(391, 26);
 		setMinimumSize(new Dimension(1500, 500));
 		setLocationByPlatform(true);
 		setLocation(0,0);
@@ -86,7 +91,7 @@ public class InitialFrame extends JFrame {
 		panel.setLayout(null);
 		
 		JPanel button_menu_container = new JPanel();
-		button_menu_container.setBounds(12, 43, 1040, 26);
+		button_menu_container.setBounds(12, 43, 1450, 26);
 		panel.add(button_menu_container);
 		button_menu_container.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -94,10 +99,11 @@ public class InitialFrame extends JFrame {
 		desktopPane.setBackground(new Color(112, 128, 144));
 		desktopPane.setBounds(10, 93, 1464, 776);
 		contentPane.add(desktopPane);
-		desktopPane.add(cartelera);
+		desktopPane.add(productos);
+		desktopPane.add(clientesrecientes);
 			
 		atencionCajaFrame = new JInternalFrame("Atención en caja");
-		atencionCajaFrame.setBounds(89, 24, 420, 449);
+		atencionCajaFrame.setBounds(89, 24, 420, 312);
 		atencionCajaFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		atencionCajaFrame.setEnabled(false);
 		atencionCajaFrame.setIconifiable(true);
@@ -125,33 +131,6 @@ public class InitialFrame extends JFrame {
 		lblFilaCrudaPlaceholder.setHorizontalTextPosition(SwingConstants.LEFT);
 		lblFilaCrudaPlaceholder.setHorizontalAlignment(SwingConstants.LEFT);
 		filaClientes.add(lblFilaCrudaPlaceholder);
-		
-		JPanel controlesAtencionCaja = new JPanel();
-		controlesAtencionCaja.setBorder(new TitledBorder(null, "Controles de atenci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		controlesAtencionCaja.setBounds(12, 207, 386, 93);
-		atencionCajaFrame.getContentPane().add(controlesAtencionCaja);
-		controlesAtencionCaja.setLayout(new GridLayout(2, 3, 0, 5));
-		
-		JLabel lblPedirNombreCliente = new JLabel("Nombre de cliente");
-		lblPedirNombreCliente.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblPedirNombreCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPedirNombreCliente.setFont(new Font("Dialog", Font.PLAIN, 12));
-		controlesAtencionCaja.add(lblPedirNombreCliente);
-		
-		nombreCliente = new JTextField();
-		nombreCliente.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		nombreCliente.setToolTipText("(Aqui va el nombre)");
-		controlesAtencionCaja.add(nombreCliente);
-		nombreCliente.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Total a pagar:");
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 12));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		controlesAtencionCaja.add(lblNewLabel);
-		
-		textField = new JTextField();
-		controlesAtencionCaja.add(textField);
-		textField.setColumns(10);
 		
 		
 		
@@ -192,13 +171,14 @@ public class InitialFrame extends JFrame {
 				JButton btnRegistrarAtencion = new JButton("Atender");
 				btnRegistrarAtencion.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+
 						Clientes clientes = new Clientes();
-						//clientes.dequeueClientes();
-						lblFilaCrudaPlaceholder.setText(clientes.dequeueClientes());;
 						lblCanastasDisponibles.setText(clientes.tomarCanasta());
+						lblFilaCrudaPlaceholder.setText(clientes.dequeueClientes());
+						
 					}
 				});
-				btnRegistrarAtencion.setBounds(158, 333, 98, 26);
+				btnRegistrarAtencion.setBounds(157, 227, 98, 26);
 				atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
 		
 		JButton btnAtencionCaja = new JButton("Atención en caja");
@@ -220,10 +200,18 @@ public class InitialFrame extends JFrame {
 		JButton btnVerCartelera = new JButton("Revisión de producto");
 		btnVerCartelera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cartelera.setVisible(true);
+				productos.setVisible(true);
 			}
 		});
 		button_menu_container.add(btnVerCartelera);
+		
+		JButton btnRevisarClientes = new JButton("Revisar ganancias");
+		btnRevisarClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clientesrecientes.setVisible(true);
+			}
+		});
+		button_menu_container.add(btnRevisarClientes);
 		
 		JLabel lblTitle = new JLabel("BIENVENID@ AL MENÚ");
 		lblTitle.setVerticalAlignment(SwingConstants.TOP);

@@ -133,7 +133,7 @@ public class ProductosFrame extends JInternalFrame {
 				if (peliculasLista.length > 0) {
 					generarListaPeliculas();
 				} else {
-					System.out.println("yA tiene cosas");
+					JOptionPane.showMessageDialog(null, "Operación ya realizada");
 				}
 			}
 		});

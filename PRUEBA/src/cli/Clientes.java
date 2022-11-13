@@ -34,8 +34,8 @@ public class Clientes {
 				clientesEnEspera.offer(i);
 				clientesCola.append(i);
 			}
-			System.out.println(clientesEnEspera);
-			System.out.println(clientesCola);
+			System.out.println("Clientes en espera: "+ clientesEnEspera);
+			System.out.println("Clientes en cola " + clientesCola);
 		} else {
 			JOptionPane.showMessageDialog(null, "AÚN HAY CLIENTES ESPERANDO");;
 		}
@@ -46,7 +46,7 @@ public class Clientes {
 	// Vaía uno por uno la fila y al imprime
 	public String dequeueClientes() {
 		if (clientesEnEspera.isEmpty() == false && canastasPila.isEmpty() == false) {
-			System.out.println(clientesEnEspera.poll());
+			System.out.println("VALOR QUE YA NO EXISTE: " + clientesEnEspera.poll());
 			clientesCola.deleteCharAt(0);
 			System.out.println(clientesEnEspera);
 			System.out.println(clientesCola);
@@ -75,8 +75,8 @@ public class Clientes {
 	// Tomar canasta
 	public String tomarCanasta() {
 		
-		if (canastas.isEmpty() == false && Clientes.clientesEnEspera.isEmpty() == false) {
-			canastas.peek();
+		if (canastas.isEmpty() == false && Clientes.clientesEnEspera.size() > 0) {
+			System.out.println("Valor actual:" + canastas.peek());
 			canastas.pop();
 			canastasPila.deleteCharAt((canastas.size()));
 		} else {
