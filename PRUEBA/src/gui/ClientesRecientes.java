@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -35,7 +38,7 @@ public class ClientesRecientes extends JInternalFrame {
 	DefaultListModel<String> gananciasModel = new DefaultListModel<>();
 	
 	// Lista para añadir los nombres
-	ArrayList<Float> listaDeGanancias = new ArrayList<>();
+	ArrayList<Integer> listaDeGanancias = new ArrayList<>();
 	
 	// Control de boton de buscar
 	boolean buscarNo = false;
@@ -89,13 +92,11 @@ public class ClientesRecientes extends JInternalFrame {
 		JButton btnAñadirGanancia = new JButton("Simular ganancias");
 		btnAñadirGanancia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Float a;
-				Float b;
+				Integer a;
 				for (int i = 0; i < 20; i++) {
-					a = (float) (Math.random()*(500-20+1)+20);
-					b = (float) (Math.round(a*100.0) / 100.0);
-					System.out.println(b);
-					listaDeGanancias.add(b);
+					a = (int) (Math.random()*(500-20+1)+20);
+					System.out.println(a);
+					listaDeGanancias.add(a);
 				}
 				for (int i = 0; i < listaDeGanancias.size(); i++) {
 					gananciasModel.addElement(listaDeGanancias.get(i).toString());
@@ -126,7 +127,7 @@ public class ClientesRecientes extends JInternalFrame {
 		getContentPane().add(btnOrdenarLista);
 		
 		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Binaria"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Binaria", "Secuencial"}));
 		comboBox.setBounds(294, 325, 134, 25);
 		getContentPane().add(comboBox);
 		
@@ -134,8 +135,17 @@ public class ClientesRecientes extends JInternalFrame {
 		btnBuscar.setEnabled(false);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(listaDeGanancias.get(0) > listaDeGanancias.get(1)) {
-					JOptionPane.showMessageDialog(null, "No esta ordenada");
+				int searchMethod = comboBox.getSelectedIndex();
+				
+				switch (searchMethod) {
+				case 0:
+					BinarySearch();
+					break;
+				case 1:
+					SequencialSearch();
+					break;
+					
+				default:
 				}
 			}
 		});
@@ -162,6 +172,34 @@ public class ClientesRecientes extends JInternalFrame {
 		});
 		btnNukeGanancias.setBounds(12, 305, 99, 26);
 		getContentPane().add(btnNukeGanancias);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(348, 297, 55, 16);
+		getContentPane().add(lblNewLabel_1);
 
+	}
+	
+	public void BinarySearch() {
+		String valorBuscar = JOptionPane.showInputDialog(null, "Ingresa el valor a buscar");
+		Integer a = Integer.valueOf(valorBuscar);
+		if (listaDeGanancias.contains(a) == true) {
+			JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en: " + Collections.binarySearch(listaDeGanancias, a));
+		} else {
+			JOptionPane.showMessageDialog(null, "No se encontró\nPrueba a escribir bien el valor e inténtalo de nuevo");
+		}
+	}
+	
+	public void SequencialSearch() {
+		String valorBuscar = JOptionPane.showInputDialog(null, "Ingresa el valor a buscar");
+		Integer a = Integer.valueOf(valorBuscar);
+		if (listaDeGanancias.contains(a) == true) {
+			for (int i = 0; i < listaDeGanancias.size(); i++) {
+				if (listaDeGanancias.get(i) == a) {
+					JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en el index: " + i);
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "No se encontró\nPrueba a escribir bien el valor e inténtalo de nuevo");
+		}
 	}
 }
