@@ -127,7 +127,7 @@ public class ClientesRecientes extends JInternalFrame {
 		getContentPane().add(btnOrdenarLista);
 		
 		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Binaria", "Secuencial"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Binaria", "Secuencial"}));
 		comboBox.setBounds(294, 325, 134, 25);
 		getContentPane().add(comboBox);
 		
@@ -173,8 +173,8 @@ public class ClientesRecientes extends JInternalFrame {
 		btnNukeGanancias.setBounds(12, 305, 99, 26);
 		getContentPane().add(btnNukeGanancias);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(348, 297, 55, 16);
+		JLabel lblNewLabel_1 = new JLabel("Selecciona el algoritmo de búsqueda:");
+		lblNewLabel_1.setBounds(208, 297, 220, 16);
 		getContentPane().add(lblNewLabel_1);
 
 	}
