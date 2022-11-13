@@ -37,6 +37,12 @@ public class ClientesRecientes extends JInternalFrame {
 	// Lista para añadir los nombres
 	ArrayList<Float> listaDeGanancias = new ArrayList<>();
 	
+	// Control de boton de buscar
+	boolean buscarNo = false;
+	
+	// Boton de buscar
+	JButton btnBuscar = new JButton("Buscar");
+	
 	
 	/**
 	 * Launch the application.
@@ -94,6 +100,7 @@ public class ClientesRecientes extends JInternalFrame {
 				for (int i = 0; i < listaDeGanancias.size(); i++) {
 					gananciasModel.addElement(listaDeGanancias.get(i).toString());
 				}
+				btnBuscar.setEnabled(false);
 			}
 		});
 		btnAñadirGanancia.setBounds(12, 256, 168, 26);
@@ -102,11 +109,17 @@ public class ClientesRecientes extends JInternalFrame {
 		JButton btnOrdenarLista = new JButton("Ordenar de menor a mayor");
 		btnOrdenarLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listaDeGanancias.sort(null);
-				gananciasModel.clear();
-				for (int i = 0; i < listaDeGanancias.size(); i++) {
-					gananciasModel.addElement(listaDeGanancias.get(i).toString());
+				if (gananciasModel.isEmpty() == false) {
+					listaDeGanancias.sort(null);
+					gananciasModel.clear();
+					for (int i = 0; i < listaDeGanancias.size(); i++) {
+						gananciasModel.addElement(listaDeGanancias.get(i).toString());
+					}
+					btnBuscar.setEnabled(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Nada que ordenar");
 				}
+				
 			}
 		});
 		btnOrdenarLista.setBounds(233, 256, 195, 26);
@@ -117,7 +130,15 @@ public class ClientesRecientes extends JInternalFrame {
 		comboBox.setBounds(294, 325, 134, 25);
 		getContentPane().add(comboBox);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		
+		btnBuscar.setEnabled(false);
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(listaDeGanancias.get(0) > listaDeGanancias.get(1)) {
+					JOptionPane.showMessageDialog(null, "No esta ordenada");
+				}
+			}
+		});
 		btnBuscar.setBounds(329, 362, 99, 26);
 		getContentPane().add(btnBuscar);
 		
@@ -136,6 +157,7 @@ public class ClientesRecientes extends JInternalFrame {
 						System.out.println("Eh?");
 					}
 				}
+				btnBuscar.setEnabled(false);
 			}
 		});
 		btnNukeGanancias.setBounds(12, 305, 99, 26);

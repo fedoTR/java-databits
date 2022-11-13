@@ -38,6 +38,7 @@ public class InitialFrame extends JFrame {
 	private JPanel contentPane;
 	private JInternalFrame atencionCajaFrame;
 	
+	// Lista de clientes atendidos
 	List<String> clientesAtendidos = new Vector<>();
 
 	/**
