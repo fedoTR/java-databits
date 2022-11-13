@@ -63,7 +63,7 @@ public class SimulacionPasillos extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(!arbolNuevo.arbolVacio()) {
 					arbolNuevo.preOrder(arbolNuevo.root);
-					JOptionPane.showMessageDialog(null, "Orden de recorrido de estacione PreOrder:\n" + arbolNuevo.mostrarArbolCompacto);
+					JOptionPane.showMessageDialog(null, "Orden de recorrido de estaciones PreOrder:\n" + arbolNuevo.mostrarArbolCompacto);
 				} else {
 					JOptionPane.showMessageDialog(null, "Ingresa un numero de estación primero");
 				}

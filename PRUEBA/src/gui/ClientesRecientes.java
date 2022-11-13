@@ -134,7 +134,8 @@ public class ClientesRecientes extends JInternalFrame {
 		btnBuscar.setEnabled(false);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int searchMethod = comboBox.getSelectedIndex();			
+				int searchMethod = comboBox.getSelectedIndex();		
+				System.out.println(searchMethod);
 				switch (searchMethod) {
 				case 0:
 					try {
@@ -146,7 +147,7 @@ public class ClientesRecientes extends JInternalFrame {
 				case 1:
 					try {
 						SequencialSearch();
-					} catch (Exception e1) {
+					} catch (Exception e2) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, "Ingresa un valor válido");
 					}
@@ -202,13 +203,20 @@ public class ClientesRecientes extends JInternalFrame {
 		String valorBuscar = JOptionPane.showInputDialog(null, "Ingresa el valor a buscar");
 		Integer a = Integer.valueOf(valorBuscar);
 		if (listaDeGanancias.contains(a) == true) {
+			System.out.println(listaDeGanancias.indexOf(a));
+			gananciasLista.setSelectedIndex((listaDeGanancias.indexOf(a)));
+			JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en " + (listaDeGanancias.indexOf(a)));
+		} else {
+			/*
 			for (int i = 0; i < listaDeGanancias.size(); i++) {
 				if (listaDeGanancias.get(i) == a) {
 					JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en el index: " + i);
-					gananciasLista.setSelectedIndex(i);
+					gananciasLista.setSelectedIndex(i);				
+				} else {
+					System.out.println("QUE");
 				}
 			}
-		} else {
+		} else {*/
 			JOptionPane.showMessageDialog(null, "No se encontró\nPrueba a escribir bien el valor e inténtalo de nuevo");
 		}
 	}

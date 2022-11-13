@@ -112,7 +112,7 @@ public class ProductosFrame extends JInternalFrame {
 		setTitle("Productos en inventario");
 		setClosable(true);
 		setIconifiable(true);
-		setBounds(100, 100, 450, 449);
+		setBounds(100, 100, 450, 492);
 		
 		
 		
@@ -143,13 +143,13 @@ public class ProductosFrame extends JInternalFrame {
 		
 		// Combobox para seleccionar el método de ordenamiento
 		JComboBox<String> comboBoxSortKind = new JComboBox<>();
-		comboBoxSortKind.setModel(new DefaultComboBoxModel<String>(new String[] {"Burbuja", "Inserción", "Selection"}));
+		comboBoxSortKind.setModel(new DefaultComboBoxModel(new String[] {"Burbuja", "Inserción", "Selection"}));
 		comboBoxSortKind.setBounds(298, 312, 126, 22);
 		panel.add(comboBoxSortKind);
 		
 		// Label del combobox ed ordenamiento
 		JLabel lblNewLabel_1 = new JLabel("Ordenar por:");
-		lblNewLabel_1.setBounds(352, 294, 72, 14);
+		lblNewLabel_1.setBounds(339, 294, 85, 14);
 		panel.add(lblNewLabel_1);
 		
 		// Desordenar películas

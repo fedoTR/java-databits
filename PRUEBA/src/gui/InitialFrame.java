@@ -75,7 +75,7 @@ public class InitialFrame extends JFrame {
 		clientesrecientes.setLocation(870, 25);
 		productos.setLocation(391, 26);
 		setMinimumSize(new Dimension(1500, 500));
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\elyto\\Downloads\\V4CBMZ8eLJu6DQ6i4iHR--1--K3UNI.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\elyto\\Downloads\\flc_design2022111381613(1).png"));
 		setTitle("StructSale");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +98,7 @@ public class InitialFrame extends JFrame {
 		button_menu_container.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(112, 128, 144));
+		desktopPane.setBackground(new Color(102, 102, 102));
 		desktopPane.setBounds(10, 93, 1464, 584);
 		contentPane.add(desktopPane);
 		desktopPane.add(productos);
