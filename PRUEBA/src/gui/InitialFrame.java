@@ -66,6 +66,7 @@ public class InitialFrame extends JFrame {
 		
 		ProductosFrame productos = new ProductosFrame();	
 		ClientesRecientes clientesrecientes = new ClientesRecientes();
+		SimulacionPasillos pasillos = new SimulacionPasillos();
 		clientesrecientes.setClosable(true);
 		clientesrecientes.setTitle("Ganancias \r\n");
 		clientesrecientes.setIconifiable(true);
@@ -86,7 +87,7 @@ public class InitialFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBorder(null);
 		panel.setBounds(0, 0, 1474, 81);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -102,6 +103,7 @@ public class InitialFrame extends JFrame {
 		contentPane.add(desktopPane);
 		desktopPane.add(productos);
 		desktopPane.add(clientesrecientes);
+		desktopPane.add(pasillos);
 			
 		atencionCajaFrame = new JInternalFrame("Atención en caja");
 		atencionCajaFrame.setBounds(89, 24, 420, 312);
@@ -213,7 +215,12 @@ public class InitialFrame extends JFrame {
 		});
 		button_menu_container.add(btnRevisarClientes);
 		
-		JButton btnNewButton = new JButton("Simulador de pasillos");
+		JButton btnNewButton = new JButton("Puntos de vigilancia");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pasillos.setVisible(true);
+			}
+		});
 		button_menu_container.add(btnNewButton);
 		
 		JLabel lblTitle = new JLabel("BIENVENID@ AL MENÚ");
