@@ -55,8 +55,7 @@ public class InitialFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InitialFrame() {
-		
+	public InitialFrame() {	
 		ProductosFrame productos = new ProductosFrame();	
 		GananciasCiclo clientesrecientes = new GananciasCiclo();
 		SimulacionVigilancia puntos = new SimulacionVigilancia();
