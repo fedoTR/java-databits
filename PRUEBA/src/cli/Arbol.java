@@ -1,11 +1,13 @@
 package cli;
 
 public class Arbol {
-	public Nodo root;
+	public Nodo root;	// Nodo raíz, padre 
+	
+	// Constructor del árbol
 	public Arbol() {
 		root = null;
 	}
-	// Local variable de stringbuilder
+	// Objeto público para poder guardar los nodos en un solo String
 	public StringBuilder mostrarArbolCompacto = new StringBuilder();
 	
 	// Inserción de nodos
@@ -41,7 +43,7 @@ public class Arbol {
 		return root == null;
 	}
 	
-	// Recorre el árbol EnOrden
+	// Recorre el árbol InOrden
 	// r es root
 	public void inOrder(Nodo r) {
 		if(r != null) {
@@ -74,7 +76,7 @@ public class Arbol {
 		}
 	}
 	
-	// Busca una estación
+	// Busca una estación (Nodo en el árbol)
 	public Nodo buscarEstacion(int d) {
 		Nodo aux = root;
 		while (aux.dato != d) {

@@ -27,22 +27,21 @@ import javax.swing.JTable;
 
 public class ProductosFrame extends JInternalFrame {
 	
-	// LOCAL VARIABLES
+	/*
+	 *	VARIABLES LOCALES 
+	 */
 	
-	// Lista de peliculas
-	JList<String> peliculasList;
+	// Lista de productos en String
+	JList<String> productosList;
 
 	// Modelo de la lista de peliculas
 	DefaultListModel<String> listModel;
 	
-	// Lista de peliculas (CRUDO)
-	Integer[] peliculasLista = new Integer[10];
+	// Arreglo de productos (Donde se harán todas las operaciones)
+	Integer[] integerProductosLista = new Integer[10];
 	
 	// Modelo de tabla de inventario
 	JTable tablaProductos = new JTable();
-	
-	
-	// DefaultTableModel table = (DefaultTableModel) tablaProductos.getModel(); 
 	
 	/**
 	 * 
@@ -75,7 +74,7 @@ public class ProductosFrame extends JInternalFrame {
 	public ProductosFrame() {
 		tablaProductos.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		tablaProductos.setModel(new DefaultTableModel(
-			new Object[][] {
+			new Object[][] {	// Todos los valores aparecen vacíos en su estado inicial
 				{null, null},
 				{null, null},
 				{null, null},
@@ -114,8 +113,7 @@ public class ProductosFrame extends JInternalFrame {
 		setIconifiable(true);
 		setBounds(100, 100, 450, 492);
 		
-		
-		
+		//Panel para guardar todos los demás componentes
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
@@ -126,24 +124,23 @@ public class ProductosFrame extends JInternalFrame {
 		lblNewLabel.setBounds(10, 11, 414, 29);
 		panel.add(lblNewLabel);
 		
-		// Imprimir peliculas
-		JButton btnImprimriPeliculas = new JButton("Ver productos actuales");		
-		btnImprimriPeliculas.addActionListener(new ActionListener() {
+		// Botón para imprimir el ID de los productos actuales
+		JButton btnImprimirProductos = new JButton("Ver productos actuales");		
+		btnImprimirProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (peliculasLista.length > 0) {
+				if (integerProductosLista.length > 0) {
 					generarListaPeliculas();
 				} else {
 					JOptionPane.showMessageDialog(null, "Operación ya realizada");
 				}
 			}
 		});
-
-		btnImprimriPeliculas.setBounds(10, 312, 160, 23);
-		panel.add(btnImprimriPeliculas);
+		btnImprimirProductos.setBounds(10, 312, 160, 23);
+		panel.add(btnImprimirProductos);
 		
 		// Combobox para seleccionar el método de ordenamiento
 		JComboBox<String> comboBoxSortKind = new JComboBox<>();
-		comboBoxSortKind.setModel(new DefaultComboBoxModel(new String[] {"Burbuja", "Inserción", "Selection"}));
+		comboBoxSortKind.setModel(new DefaultComboBoxModel<String>(new String[] {"Burbuja", "Inserción", "Selection"}));
 		comboBoxSortKind.setBounds(298, 312, 126, 22);
 		panel.add(comboBoxSortKind);
 		
@@ -156,23 +153,22 @@ public class ProductosFrame extends JInternalFrame {
 		JButton btnNewButton = new JButton("Desordenar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ShuffleArray(peliculasLista, peliculasLista.length);
-				falseUpdater();
+				ShuffleArray(integerProductosLista, integerProductosLista.length);
+				actualizadorTabla();
 				//listWatchDog();
 			}
 		});
 		btnNewButton.setBounds(10, 356, 105, 23);
 		panel.add(btnNewButton);
 		
-		// El scrollpane para la jlist
+		// El scrollpane para guardar la JList
 		JScrollPane scrollPanePeliculasList = new JScrollPane();
 		scrollPanePeliculasList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		scrollPanePeliculasList.setBounds(53, 71, 62, 169);
 		panel.add(scrollPanePeliculasList);
-		
-		peliculasList = new JList<>(listModel);
-		peliculasList.setLayoutOrientation(JList.VERTICAL);
-		scrollPanePeliculasList.setViewportView(peliculasList);	
+		productosList = new JList<>(listModel);
+		productosList.setLayoutOrientation(JList.VERTICAL);	// La lista será vertical
+		scrollPanePeliculasList.setViewportView(productosList);	
 		
 		// Boton de ordenar arreeglo
 		JButton btnOrdenarPeliculas = new JButton("Ordenar");
@@ -184,17 +180,17 @@ public class ProductosFrame extends JInternalFrame {
 				switch (selection) {
 					case 0:
 						BubbleSort();
-						falseUpdater();
+						actualizadorTabla();	// Siempre al final actualiza la tabla con los valores ordenados
 					break;
 					
 					case 1:
 						InsertionSort();
-						falseUpdater();
+						actualizadorTabla();
 					break;
 					
 					case 2:
 						SelectionSort();
-						falseUpdater();
+						actualizadorTabla();
 					break;
 					default:
 						System.out.println("JA");
@@ -212,31 +208,28 @@ public class ProductosFrame extends JInternalFrame {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(232, 54, 126, 16);
 		panel.add(lblNewLabel_3);
-		
-
-		
-	
 	}
 	
 	/* 
 	 * METODOS
 	 */
+	
 	// Genera la lista y la rellena
 	public void generarListaPeliculas() {
-		int gnomo = 0;
+		int auxiliarDeLista = 0;
 		listModel.clear();
-		for (int i = 0; i < peliculasLista.length; i++) {
-			peliculasLista[i] = i;
-			gnomo = peliculasLista[i];
-			listModel.addElement(Integer.toString(gnomo));
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			integerProductosLista[i] = i;
+			auxiliarDeLista = integerProductosLista[i];
+			listModel.addElement(Integer.toString(auxiliarDeLista));
 		}
-		System.out.println(Arrays.toString(peliculasLista));
+		System.out.println(Arrays.toString(integerProductosLista));
 		//tablaProductos.add(new Object[] {"0", "Manzana"});
 	}
 	
 	// Desordena el arreglo	
 	public void ShuffleArray(Integer[] peliculasLista, int a) {
-		int gnomo = 0;
+		int auxiliarLista = 0;
 		Random rd = new Random();
 		listModel.clear();
 		for (int i = a-1; i > 0; i--) {
@@ -246,8 +239,8 @@ public class ProductosFrame extends JInternalFrame {
 			peliculasLista[j] = temp;
 		}
 		for (int i = 0; i < peliculasLista.length; i++) {
-			gnomo = peliculasLista[i];
-			listModel.addElement(Integer.toString(gnomo));
+			auxiliarLista = peliculasLista[i];
+			listModel.addElement(Integer.toString(auxiliarLista));
 		}
 		System.out.println(Arrays.toString(peliculasLista));
 	}
@@ -256,131 +249,132 @@ public class ProductosFrame extends JInternalFrame {
 	public void BubbleSort() {
 		int gnomo = 0;
 		listModel.clear();
-		int n = peliculasLista.length;
+		int n = integerProductosLista.length;
 		int temp = 0;
 		for (int i = 0; i < (n-1); i++) {
 			for (int j = 1; j < (n-i); j++) {
 				// ORDENAMIENTO
-				if (peliculasLista[j-1] > peliculasLista[j]) {
-					temp = peliculasLista[j-1];
-					peliculasLista[j-1] = peliculasLista[j];
-					peliculasLista[j] = temp;
+				if (integerProductosLista[j-1] > integerProductosLista[j]) {
+					temp = integerProductosLista[j-1];
+					integerProductosLista[j-1] = integerProductosLista[j];
+					integerProductosLista[j] = temp;
 				}
-				System.out.println(Arrays.toString(peliculasLista));
+				System.out.println(Arrays.toString(integerProductosLista));
 			}		
 		}
-		for (int i = 0; i < peliculasLista.length; i++) {
-			gnomo = peliculasLista[i];
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			gnomo = integerProductosLista[i];
 			listModel.addElement(Integer.toString(gnomo));
 		}
-		System.out.println(Arrays.toString(peliculasLista));
+		System.out.println(Arrays.toString(integerProductosLista));
 	}
 	
 	// Ordenamiento por inserción
 	public void InsertionSort() {
-		int gnomo = 0;
+		int auxiliarLista = 0;
 		listModel.clear();
-		for (int i = 1; i < peliculasLista.length; i++) {
-			int current = peliculasLista[i];
+		for (int i = 1; i < integerProductosLista.length; i++) {
+			int current = integerProductosLista[i];
 			int j = i - 1;
-			while (j >= 0 && current < peliculasLista[j]) {
-				peliculasLista[j+1] = peliculasLista[j];
+			while (j >= 0 && current < integerProductosLista[j]) {
+				integerProductosLista[j+1] = integerProductosLista[j];
 				j--;
 			}
-			peliculasLista[j+1] = current;
-			System.out.println(Arrays.toString(peliculasLista));
+			integerProductosLista[j+1] = current;
+			System.out.println(Arrays.toString(integerProductosLista));
 		}
-		for (int i = 0; i < peliculasLista.length; i++) {
-			gnomo = peliculasLista[i];
-			listModel.addElement(Integer.toString(gnomo));
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			auxiliarLista = integerProductosLista[i];
+			listModel.addElement(Integer.toString(auxiliarLista));
 		}
-		System.out.println(Arrays.toString(peliculasLista));
+		System.out.println(Arrays.toString(integerProductosLista));
 		
 	}
 	
 	// Ordenamiento por selección
 	public void SelectionSort() {
-		int gnomo = 0;
+		int auxiliarLista = 0;
 		listModel.clear();
-		for (int i = 0; i < peliculasLista.length;i++){
-			int min = peliculasLista[i];
+		for (int i = 0; i < integerProductosLista.length;i++){
+			int min = integerProductosLista[i];
 			int minId = i;
-			for (int j = i+1; j < peliculasLista.length; j++) {
-				if (peliculasLista[j] < min) {
-					min = peliculasLista[j];
+			for (int j = i+1; j < integerProductosLista.length; j++) {
+				if (integerProductosLista[j] < min) {
+					min = integerProductosLista[j];
 					minId = j;
 				}
 			}
 			// INTERCAMBIO
-			int temp = peliculasLista[i];
-			peliculasLista[i] = min;
-			peliculasLista[minId] = temp;
-			System.out.println(Arrays.toString(peliculasLista));
+			int temp = integerProductosLista[i];
+			integerProductosLista[i] = min;
+			integerProductosLista[minId] = temp;
+			System.out.println(Arrays.toString(integerProductosLista));
 		}
-		for (int i = 0; i < peliculasLista.length; i++) {
-			gnomo = peliculasLista[i];
-			listModel.addElement(Integer.toString(gnomo));
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			auxiliarLista = integerProductosLista[i];
+			listModel.addElement(Integer.toString(auxiliarLista));
 		}
-		System.out.println(Arrays.toString(peliculasLista));
+		System.out.println(Arrays.toString(integerProductosLista));
 	}
 	
-	public void falseUpdater() {
-		nukeColumn();
+	// Método para actualizar la tabla después de ordenar
+	public void actualizadorTabla() {
+		borrarColumna();
 		int j = 0;
-		int ayudanteGnomo = 0;
-		for (int i = 0; i < peliculasLista.length; i++) {
-			System.out.println(peliculasLista[i]);
+		int auxiliarTabla = 0;
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			System.out.println(integerProductosLista[i]);
 			
-			tablaProductos.setValueAt(peliculasLista[i], j++, 0);
-			if(j > peliculasLista.length) {
+			tablaProductos.setValueAt(integerProductosLista[i], j++, 0);
+			if(j > integerProductosLista.length) {
 				JOptionPane.showMessageDialog(null, "Alcanzado");
 				break;
 			}
 		}
-		for (int i = 0; i < peliculasLista.length; i++) {
-			ayudanteGnomo = (int) tablaProductos.getValueAt(i, 0);
-			switch(ayudanteGnomo) {
+		for (int i = 0; i < integerProductosLista.length; i++) {
+			auxiliarTabla = (int) tablaProductos.getValueAt(i, 0);
+			switch(auxiliarTabla) {
 			case 0:
-				tablaProductos.setValueAt("Manzana", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Manzana", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 1:
-				tablaProductos.setValueAt("Sandía", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Sandía", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 2:
-				tablaProductos.setValueAt("Coco", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Coco", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 3:
-				tablaProductos.setValueAt("Elote", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Elote", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 4:
-				tablaProductos.setValueAt("Calabaza", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Calabaza", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 5:
-				tablaProductos.setValueAt("Melón", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Melón", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 6:
-				tablaProductos.setValueAt("Pepino", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Pepino", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 7:
-				tablaProductos.setValueAt("Brócoli", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Brócoli", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 8:
-				tablaProductos.setValueAt("Rábanos", encuentraFido(ayudanteGnomo), 1);
+				tablaProductos.setValueAt("Rábanos", encuentraValor(auxiliarTabla), 1);
 			break;
 			case 9:
-				tablaProductos.setValueAt("Ciruelas", encuentraFido(ayudanteGnomo), 1);
-			break;
-			
+				tablaProductos.setValueAt("Ciruelas", encuentraValor(auxiliarTabla), 1);
+			break;		
 			default:
-					
+				JOptionPane.showMessageDialog(null, "Error inesperado");	
 			}
-		}
-			
+		}		
 	}
-	public int encuentraFido(Integer mike) {
+	
+	// Método para encontrar un valor en el arreglo
+	public int encuentraValor(Integer d) {
 		for (int i = 0; i < tablaProductos.getRowCount(); i++) {
 			for (int j = 0; j < tablaProductos.getColumnCount(); j++) {
-				if (Objects.equals(mike, tablaProductos.getValueAt(i, j))) {
+				if (Objects.equals(d, tablaProductos.getValueAt(i, j))) {
 					return i;
 				}
 			}
@@ -388,7 +382,8 @@ public class ProductosFrame extends JInternalFrame {
 		return -1;
 	}
 	
-	public void nukeColumn() {
+	// Método para limpiar la columna
+	public void borrarColumna() {
 		for (int i = 0; i < tablaProductos.getRowCount(); i++) {
 			tablaProductos.setValueAt("", i, 1);
 		}

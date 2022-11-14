@@ -3,7 +3,6 @@ package cli;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
-
 import javax.swing.JOptionPane;
 
 public class Clientes {
@@ -12,7 +11,9 @@ public class Clientes {
 	 * 
 	 *  */
 	
+	// La cola de clientes en espera
 	static Queue<Integer> clientesEnEspera = new PriorityQueue<>();
+	
 	// Almacena en un string modificable la cola
 	static StringBuilder clientesCola = new StringBuilder();
 	
@@ -22,7 +23,6 @@ public class Clientes {
 	// Almacena en un string modificable las canastas
 	static StringBuilder canastasPila = new StringBuilder();
 	
-
 	/*
 	 *	Métodos 
 	 */
@@ -56,6 +56,7 @@ public class Clientes {
 		return clientesCola.toString();
 	}
 	
+	// Devuelve las canastas y las inserta en un String
 	public String devolverCanastas() {
 		int i = 0;
 		do {
@@ -84,7 +85,4 @@ public class Clientes {
 		}
 		return canastasPila.toString();	
 	}
-	
-}	// FIN
-
-
+}

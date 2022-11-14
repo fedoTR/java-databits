@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +12,6 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -21,8 +19,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-import java.util.Vector;
 import javax.swing.border.TitledBorder;
 import cli.Clientes;
 import java.awt.event.ActionListener;
@@ -37,9 +33,6 @@ public class InitialFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JInternalFrame atencionCajaFrame;
-	
-	// Lista de clientes atendidos
-	List<String> clientesAtendidos = new Vector<>();
 
 	/**
 	 * Launch the application.
@@ -65,8 +58,8 @@ public class InitialFrame extends JFrame {
 	public InitialFrame() {
 		
 		ProductosFrame productos = new ProductosFrame();	
-		ClientesRecientes clientesrecientes = new ClientesRecientes();
-		SimulacionPasillos pasillos = new SimulacionPasillos();
+		GananciasCiclo clientesrecientes = new GananciasCiclo();
+		SimulacionVigilancia puntos = new SimulacionVigilancia();
 		clientesrecientes.setClosable(true);
 		clientesrecientes.setTitle("Ganancias \r\n");
 		clientesrecientes.setIconifiable(true);
@@ -103,7 +96,7 @@ public class InitialFrame extends JFrame {
 		contentPane.add(desktopPane);
 		desktopPane.add(productos);
 		desktopPane.add(clientesrecientes);
-		desktopPane.add(pasillos);
+		desktopPane.add(puntos);
 			
 		atencionCajaFrame = new JInternalFrame("Atención en caja");
 		atencionCajaFrame.setBounds(89, 24, 420, 312);
@@ -136,7 +129,7 @@ public class InitialFrame extends JFrame {
 		
 		
 		
-		// Rellena la fila y actualiza el label
+		// Rellena la fila y actualiza el label para mostrarlos
 		JButton btnRefillFilaCruda = new JButton("Pasar 5");
 		btnRefillFilaCruda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,6 +140,8 @@ public class InitialFrame extends JFrame {
 		btnRefillFilaCruda.setBounds(249, 75, 98, 26);
 		atencionCajaFrame.getContentPane().add(btnRefillFilaCruda);
 		
+		// Panel para guardar el componente que muestra las canastas disponibles 
+		// Stack
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Canastas disponibles", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(12, 146, 224, 49);
@@ -170,22 +165,20 @@ public class InitialFrame extends JFrame {
 		atencionCajaFrame.getContentPane().add(btnRellenarCanastas);
 		
 		// Decrementa la fila y actualiza el label
-				JButton btnRegistrarAtencion = new JButton("Atender");
-				btnRegistrarAtencion.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-
-						Clientes clientes = new Clientes();
-						lblCanastasDisponibles.setText(clientes.tomarCanasta());
-						lblFilaCrudaPlaceholder.setText(clientes.dequeueClientes());
-						
-					}
-				});
-				btnRegistrarAtencion.setBounds(157, 227, 98, 26);
-				atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
+		JButton btnRegistrarAtencion = new JButton("Atender");
+		btnRegistrarAtencion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clientes clientes = new Clientes();
+				lblCanastasDisponibles.setText(clientes.tomarCanasta());
+				lblFilaCrudaPlaceholder.setText(clientes.dequeueClientes());			
+			}
+		});
+		btnRegistrarAtencion.setBounds(157, 227, 98, 26);
+		atencionCajaFrame.getContentPane().add(btnRegistrarAtencion);
 		
+		// Abre el JInternalFrame adecuado para atender en caja
 		JButton btnAtencionCaja = new JButton("Atención en caja");
-		btnAtencionCaja.addMouseListener(new MouseAdapter() {
-			
+		btnAtencionCaja.addMouseListener(new MouseAdapter() {		
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("CAJA");
 				if (atencionCajaFrame.isVisible() == true) {
@@ -198,7 +191,7 @@ public class InitialFrame extends JFrame {
 		btnAtencionCaja.setToolTipText("Atención de clientes");
 		button_menu_container.add(btnAtencionCaja);
 		
-		// Botón de ver cartelera
+		// Botón para abrir el JInternalFrame de productos
 		JButton btnVerCartelera = new JButton("Revisión de producto");
 		btnVerCartelera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,18 +200,20 @@ public class InitialFrame extends JFrame {
 		});
 		button_menu_container.add(btnVerCartelera);
 		
-		JButton btnRevisarClientes = new JButton("Revisar ganancias");
-		btnRevisarClientes.addActionListener(new ActionListener() {
+		// Revisa las ganancias abriendo el respectivo JInternalFrame
+		JButton btnRevisarGanancias = new JButton("Revisar ganancias");
+		btnRevisarGanancias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clientesrecientes.setVisible(true);
 			}
 		});
-		button_menu_container.add(btnRevisarClientes);
+		button_menu_container.add(btnRevisarGanancias);
 		
+		// Abre el JInternalFrame para ver los puntos de vigilancia
 		JButton btnNewButton = new JButton("Puntos de vigilancia");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pasillos.setVisible(true);
+				puntos.setVisible(true);
 			}
 		});
 		button_menu_container.add(btnNewButton);

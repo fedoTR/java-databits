@@ -19,6 +19,7 @@ public class Nodo {
 		this.nodoIzquierdo = null;
 	}
 	
+	// Método para imprimir los nodos del árbol
 	public String toString() {
 		mostrarArbol.concat(String.valueOf(dato) + " ");
 		return mostrarArbol;
