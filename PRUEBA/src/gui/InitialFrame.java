@@ -1,28 +1,30 @@
 package gui;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
-import java.awt.Dimension;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
 import cli.Clientes;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 public class InitialFrame extends JFrame {
@@ -126,8 +128,6 @@ public class InitialFrame extends JFrame {
 		lblFilaCrudaPlaceholder.setHorizontalAlignment(SwingConstants.LEFT);
 		filaClientes.add(lblFilaCrudaPlaceholder);
 		
-		
-		
 		// Rellena la fila y actualiza el label para mostrarlos
 		JButton btnRefillFilaCruda = new JButton("Pasar 5");
 		btnRefillFilaCruda.addActionListener(new ActionListener() {
@@ -179,7 +179,6 @@ public class InitialFrame extends JFrame {
 		JButton btnAtencionCaja = new JButton("Atención en caja");
 		btnAtencionCaja.addMouseListener(new MouseAdapter() {		
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("CAJA");
 				if (atencionCajaFrame.isVisible() == true) {
 					JOptionPane.showMessageDialog(null, "Ya se encuentra abierto");
 				} else {

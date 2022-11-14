@@ -17,7 +17,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.awt.event.ActionEvent;
@@ -174,9 +173,7 @@ public class ProductosFrame extends JInternalFrame {
 		JButton btnOrdenarPeliculas = new JButton("Ordenar");
 		btnOrdenarPeliculas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(comboBoxSortKind.getSelectedItem());
 				int selection = comboBoxSortKind.getSelectedIndex();
-				System.out.println(selection);
 				switch (selection) {
 					case 0:
 						BubbleSort();
@@ -193,7 +190,7 @@ public class ProductosFrame extends JInternalFrame {
 						actualizadorTabla();
 					break;
 					default:
-						System.out.println("JA");
+						JOptionPane.showMessageDialog(null, "Error inesperado");
 				}
 			}
 		});
@@ -223,8 +220,6 @@ public class ProductosFrame extends JInternalFrame {
 			auxiliarDeLista = integerProductosLista[i];
 			listModel.addElement(Integer.toString(auxiliarDeLista));
 		}
-		System.out.println(Arrays.toString(integerProductosLista));
-		//tablaProductos.add(new Object[] {"0", "Manzana"});
 	}
 	
 	// Desordena el arreglo	
@@ -242,7 +237,6 @@ public class ProductosFrame extends JInternalFrame {
 			auxiliarLista = peliculasLista[i];
 			listModel.addElement(Integer.toString(auxiliarLista));
 		}
-		System.out.println(Arrays.toString(peliculasLista));
 	}
 	
 	// Ordenamiento por burbuja
@@ -259,14 +253,12 @@ public class ProductosFrame extends JInternalFrame {
 					integerProductosLista[j-1] = integerProductosLista[j];
 					integerProductosLista[j] = temp;
 				}
-				System.out.println(Arrays.toString(integerProductosLista));
 			}		
 		}
 		for (int i = 0; i < integerProductosLista.length; i++) {
 			gnomo = integerProductosLista[i];
 			listModel.addElement(Integer.toString(gnomo));
 		}
-		System.out.println(Arrays.toString(integerProductosLista));
 	}
 	
 	// Ordenamiento por inserción
@@ -281,14 +273,11 @@ public class ProductosFrame extends JInternalFrame {
 				j--;
 			}
 			integerProductosLista[j+1] = current;
-			System.out.println(Arrays.toString(integerProductosLista));
 		}
 		for (int i = 0; i < integerProductosLista.length; i++) {
 			auxiliarLista = integerProductosLista[i];
 			listModel.addElement(Integer.toString(auxiliarLista));
-		}
-		System.out.println(Arrays.toString(integerProductosLista));
-		
+		}		
 	}
 	
 	// Ordenamiento por selección
@@ -308,13 +297,11 @@ public class ProductosFrame extends JInternalFrame {
 			int temp = integerProductosLista[i];
 			integerProductosLista[i] = min;
 			integerProductosLista[minId] = temp;
-			System.out.println(Arrays.toString(integerProductosLista));
 		}
 		for (int i = 0; i < integerProductosLista.length; i++) {
 			auxiliarLista = integerProductosLista[i];
 			listModel.addElement(Integer.toString(auxiliarLista));
 		}
-		System.out.println(Arrays.toString(integerProductosLista));
 	}
 	
 	// Método para actualizar la tabla después de ordenar
@@ -322,9 +309,7 @@ public class ProductosFrame extends JInternalFrame {
 		borrarColumna();
 		int j = 0;
 		int auxiliarTabla = 0;
-		for (int i = 0; i < integerProductosLista.length; i++) {
-			System.out.println(integerProductosLista[i]);
-			
+		for (int i = 0; i < integerProductosLista.length; i++) {		
 			tablaProductos.setValueAt(integerProductosLista[i], j++, 0);
 			if(j > integerProductosLista.length) {
 				JOptionPane.showMessageDialog(null, "Alcanzado");

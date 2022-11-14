@@ -93,7 +93,6 @@ public class GananciasCiclo extends JInternalFrame {
 				Integer a;
 				for (int i = 0; i < 20; i++) {
 					a = (int) (Math.random()*(500-20+1)+20);	// Genera las ganancias de forma aleatoria
-					System.out.println(a);
 					listaDeGanancias.add(a);
 				}
 				for (int i = 0; i < listaDeGanancias.size(); i++) {
@@ -136,7 +135,6 @@ public class GananciasCiclo extends JInternalFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int searchMethod = comboBox.getSelectedIndex();		
-				System.out.println(searchMethod);
 				switch (searchMethod) {
 				case 0:
 					try {
@@ -206,7 +204,6 @@ public class GananciasCiclo extends JInternalFrame {
 		String valorBuscar = JOptionPane.showInputDialog(null, "Ingresa el valor a buscar");
 		Integer a = Integer.valueOf(valorBuscar);
 		if (listaDeGanancias.contains(a) == true) {
-			System.out.println(listaDeGanancias.indexOf(a));
 			gananciasLista.setSelectedIndex((listaDeGanancias.indexOf(a)));
 			JOptionPane.showMessageDialog(null, "Encontrado el valor " + a + " en " + (listaDeGanancias.indexOf(a)));
 		} else {
