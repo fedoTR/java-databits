@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -72,7 +74,16 @@ public class InitialFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\elyto\\Downloads\\flc_design2022111381613(1).png"));
 		setTitle("StructSale");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		// Pregunta al usuario si desea salir de la aplicación
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				maybeExit();
+				super.windowClosing(e);
+			}
+		});
+		
 		setBounds(100, 100, 1073, 726);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -229,5 +240,13 @@ public class InitialFrame extends JFrame {
 	public JInternalFrame getAtencionCajaFrame() {
 		return atencionCajaFrame;
 		
+	}
+	
+	// Dialog to close
+	private void maybeExit() {
+		int yesNo = JOptionPane.showConfirmDialog(this, "¿Salir de la aplicación?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (yesNo == JOptionPane.YES_NO_OPTION) {
+			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);;
+		}
 	}
 }

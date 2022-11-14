@@ -154,7 +154,6 @@ public class ProductosFrame extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				ShuffleArray(integerProductosLista, integerProductosLista.length);
 				actualizadorTabla();
-				//listWatchDog();
 			}
 		});
 		btnNewButton.setBounds(10, 356, 105, 23);
@@ -190,7 +189,7 @@ public class ProductosFrame extends JInternalFrame {
 						actualizadorTabla();
 					break;
 					default:
-						JOptionPane.showMessageDialog(null, "Error inesperado");
+						JOptionPane.showMessageDialog(null, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE, frameIcon);
 				}
 			}
 		});
